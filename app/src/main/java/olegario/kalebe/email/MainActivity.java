@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        //Pega o botao pelo seu id
         Button btnEnviar = (Button) findViewById(R.id.btnEnviar);
         //Definicao da acao do click do botao
         btnEnviar.setOnClickListener(new View.OnClickListener() {
@@ -42,13 +43,17 @@ public class MainActivity extends AppCompatActivity {
                 EditText etTexto = (EditText) findViewById(R.id.etTexto);
                 String texto = etTexto.getText().toString();
 
+                //cria uma intent para enviar um e-mail, indicando que a intent é para enviar um e-mail.
                 Intent i = new Intent(Intent.ACTION_SENDTO);
                 i.setData(Uri.parse("mailto:"));
+
+                //Adiciona dados extras a intent. especificam o endereço de e-mail do destinatário, o assunto do e-mail e o texto
                 String[] emails = new  String[] {email};
                 i.putExtra(Intent.EXTRA_EMAIL, emails);
                 i.putExtra(Intent.EXTRA_SUBJECT, assunto);
                 i.putExtra(Intent.EXTRA_TEXT, texto);
 
+                //iniciar uma atividade que pode lidar com o intent, caso contrario, exibe uma mensagem indicando que nenhum aplicativo está disponível para realizar a operação.
                 try {
                 startActivity(Intent.createChooser(i, "Escolha o APP"));
                 }
